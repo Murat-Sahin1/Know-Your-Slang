@@ -1,20 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import {createStackNavigator, HeaderBackground} from 'react-navigation-stack';
+import {createAppContainer} from 'react-navigation';
+import mainScreen from './src/screens/mainScreen';
+import SlangDetail from './src/screens/SlangDetail';
+import welcomeScreen from './src/screens/welcomeScreen';
+import CustomSkeletonUIs from './src/components/mainScreenComps/CustomSkeletonUIs';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const myStackNavigator = createStackNavigator(
+{
+  main: mainScreen,
+  skelet: CustomSkeletonUIs,
+  SlangDetail: SlangDetail,
+  welcome: welcomeScreen
+},
+{
+  initialRouteName: 'welcome',
+    defaultNavigationOptions: { 
+      headerShown: false
+    }
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+/*
+defaultNavigationOptions:{ 
+    title: 'Know Your Slang!',
+    headerTintColor: '#FFF',
+    headerTitleStyle: {
+      color: '#202225',
+      fontWeight: "200",
+      fontSize: 20,
+      alignSelf: 'center',
+      flex: 1
+    },
+    headerStyle: {
+      backgroundColor: '#202225',
+    },
+  */
+
+export default createAppContainer(myStackNavigator);
